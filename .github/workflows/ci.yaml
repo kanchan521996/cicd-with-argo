@@ -5,16 +5,21 @@ on:
     branches: [main]
     paths:
       - "backend/**"
+  workflow_dispatch:   # Actions tab se manual run ke liye
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    env:
-      IMAGE_NAME: ${{ vars.DOCKERHUB_USERNAME }}/eks-backend
+    environment: kanchannath
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Check values
+        run: |
+          [ -z "${{ vars.DOCKERHUB_USERNAME }}" ] && echo "USERNAME is EMPTY" || echo "USERNAME is set"
+          [ -z "${{ secrets.DOCKERHUB_TOKEN }}" ] && echo "TOKEN is EMPTY" || echo "TOKEN is set"
 
       - name: Generate unique image tag
         id: vars
@@ -34,6 +39,6 @@ jobs:
         with:
           context: ./backend
           push: true
-          tags: ${{ env.IMAGE_NAME }}:${{ steps.vars.outputs.tag }}
+          tags: ${{ vars.DOCKERHUB_USERNAME }}/eks-backend:${{ steps.vars.outputs.tag }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
