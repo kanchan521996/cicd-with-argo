@@ -9,7 +9,7 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    environment: production   # <-- yaha apne Environment ka exact naam likho
+    environment: kanchannath
     env:
       IMAGE_NAME: ${{ vars.DOCKERHUB_USERNAME }}/eks-backend
 
