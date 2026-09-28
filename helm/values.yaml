@@ -4,10 +4,9 @@ backend:
     repository: kanchannath/eks-backend
     imagePullSecrets:
       - name: dockerhub-secret
-    tag: "4.1-89dd6e6"
+    tag: "4.2-89dd6e6"
     digest: ""
     pullPolicy: IfNotPresent
-
 database:
   image:
     registry: docker.io
@@ -15,11 +14,9 @@ database:
     tag: "8.0"
     digest: ""
     pullPolicy: IfNotPresent
-
 backendport:
   port:
     containerPort: 8080
-
 databaseport:
   port:
     containerPort: 3306
