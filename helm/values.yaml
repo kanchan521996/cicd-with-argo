@@ -1,14 +1,10 @@
 magePullSecrets:
   - name: dockerhub-secret
-
 backend:
   image:
     registry: docker.io
     repository: kanchannath/eks-backend
-
-
-    tag: "4.1-89dd6e6"
-
+    tag: "5.1-5fae504"
     digest: ""
     pullPolicy: IfNotPresent
 database:
