@@ -4,7 +4,7 @@ backend:
   image:
     registry: docker.io
     repository: kanchannath/eks-backend
-    tag: "5.1-5fae504"
+    tag: "6.1-126027c"
     digest: ""
     pullPolicy: IfNotPresent
 database:
