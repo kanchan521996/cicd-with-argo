@@ -2,7 +2,7 @@ backend:
   image:
     registry: docker.io
     repository: kanchannath/eks-backend
-    tag: "3.1-e69a979"
+    tag: "4.1-89dd6e6"
     digest: ""
     pullPolicy: IfNotPresent
 database:
