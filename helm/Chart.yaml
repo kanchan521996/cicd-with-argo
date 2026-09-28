@@ -1,0 +1,12 @@
+name: nginx-demo
+apiVersion: v2
+appVersion: "2"
+version: "1.0.0"
+description: "deployment fo backend and db"
+maintainers: 
+    - name: Kanchan Nath
+keywords:
+    - nginx
+    - webpage
+
+

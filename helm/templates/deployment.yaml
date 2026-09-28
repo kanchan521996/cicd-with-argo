@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app: backend
+      containers:
+      - name: backend
+        
+        image: "{{ .Values.backend.image.registry }}/{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
+        imagePullPolicy: "{{ .Values.backend.image.pullPolicy }}"
+
+
+        # resources:
+        #   limits:
+        #     memory: "128Mi"
+        #     cpu: "500m"
+        ports:
+        - containerPort: {{ .Values.backendport.port.containerPort}}
+        env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://sql:3306/paylane
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: MYSQL_USER
+
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: MYSQL_PASSWORD
+        readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: {{ .Values.backendport.port.containerPort}}
+            initialDelaySeconds: 20
+            periodSeconds: 10
+
+        livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: {{ .Values.backendport.port.containerPort}}
+            initialDelaySeconds: 60
+            periodSeconds: 15

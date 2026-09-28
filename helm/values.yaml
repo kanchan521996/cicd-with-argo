@@ -1,0 +1,23 @@
+backend:
+  image:
+    registry: docker.io
+    repository: kanchannath/eks-backend
+    tag: "2"
+    digest: ""
+    pullPolicy: IfNotPresent
+    
+
+database:
+  image: 
+    registry: docker.io
+    repository: library/mysql
+    tag: "8.0"
+    digest: "" 
+    pullPolicy: IfNotPresent
+
+backendport:
+  port:
+    containerPort: 8080
+databaseport:
+  port: 
+    containerPort: 3306
